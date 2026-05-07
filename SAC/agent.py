@@ -74,8 +74,8 @@ class SoftQNetwork(nn.Module):
 
     def forward(self, obs, action):
         x = torch.cat([obs, action], dim=-1)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        x = F.silu(self.fc1(x)) # Try using SiLU for better performance in high-dimensional
+        x = F.silu(self.fc2(x))
         return self.fc3(x)
 
 
