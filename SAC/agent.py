@@ -37,8 +37,8 @@ class Actor(nn.Module):
         self.register_buffer("action_bias", action_bias)
 
     def forward(self, obs):
-        x = F.relu(self.fc1(obs))
-        x = F.relu(self.fc2(x))
+        x = F.silu(self.fc1(obs))
+        x = F.silu(self.fc2(x))
         mean = self.fc_mean(x)
         log_std = self.fc_logstd(x)
         log_std = torch.tanh(log_std)
